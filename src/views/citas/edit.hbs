@@ -1,0 +1,33 @@
+<div class="container p-4">
+  <div class="row">
+    <div class="col-md-4 mx-auto">
+      <div class="card text-center">
+        <div class="card-header">
+          <h3 class="text-upeprcase">EDITANDO CITA</h3>
+        </div>
+        <div class="card-body">
+          <form action="/edit/{{cita.id}}" method="post">
+            <div class="input-group mt-2">
+              <label for="nombreDoctor" class="input-group-text">Doctor</label>
+              <input class="form-control" type="text" name="nombreDoctor" id="nombreDoctor" value="{{cita.nombreDoctor}}" placeholder="Ejemplo: Miguel Quintero" autofocus required>
+            </div>
+            <div class="input-group mt-2">
+              <label for="nombrePaciente" class="input-group-text">Paciente</label>
+              <input class="form-control" type="text" name="nombrePaciente" id="nombrePaciente" value="{{cita.nombrePaciente}}" placeholder="Ejemplo: Luis Angel"autofocus required>
+            </div>
+            <div class="input-group mt-2">
+              <label for="fecha" class="input-group-text">Fecha</label>
+              <input class="form-control" type="date" name="fecha" id="fecha" value="{{cita.fecha}}" required>
+            </div>
+            <div class="input-group mt-2">
+              <label for="hora" class="input-group-text">Hora</label>
+              <input class="form-control" type="time" name="hora" id="hora" value="{{cita.hora}}" required>
+            </div>
+            <div class="input-group mt-4 d-grid gap-2">
+              <button class="btn btn-succes">Actualizar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
