@@ -33,8 +33,14 @@ router.get('/add', async (req, res) => {
     
 });
 
-router.get('/addUser', (req, res) => {
-    res.render('citas/addUser');
+router.get('/addUser', async (req, res) => {
+    const {_token} = req.cookies;
+    const decoded = jwt.verify(_token, "papagaiodomar");
+    console.log(decoded)
+    const doctores = await getAllDoctors().then((doctors) => {return doctors});
+    console.log(doctores);
+    res.render('citas/addUser', {doctores, decoded});
+    
 });
 
 router.post('/auth', async (req, res) => {
@@ -75,22 +81,23 @@ router.post('/add', async (req, res) => {
 });
 
 router.post('/addUser', async (req, res) => {
+    console.log(req.body)
     try {
-       const {nombreDoctor, nombrePaciente, fecha, hora} = req.body;
+       const {id_medico, nombre,id_paciente, fecha, hora} = req.body;
        const newCita = {
-           nombreDoctor,
-           nombrePaciente,
+           nombre,
+           id_medico,
+           id_paciente,
            fecha,
            hora
        };
        await pool.query('INSERT INTO citas set ?', [newCita]);
-       res.redirect('/listUser');
+       res.redirect('/list');
     }
     catch (err) {
         res.status(500).json({message: err.message});
     }
 });
-
 router.get('/list', async(req, res) => {
     try {
         const [result] = await pool.query('SELECT * FROM citas');
