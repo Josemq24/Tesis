@@ -4,6 +4,7 @@ import { engine } from "express-handlebars";
 import {join, dirname} from "path";
 import {fileURLToPath} from "url";
 import citasRoutes from './routes/citas.routes.js';
+import cookieParser from "cookie-parser";
 
 //Initialization
 const app = express();
@@ -19,6 +20,9 @@ app.engine('.hbs', engine({
     extname: '.hbs'
 }));
 app.set('view engine', '.hbs');
+
+//Habilita utilizar cookies :D
+app.use(cookieParser());
 
 //Middlewares
 app.use(morgan('dev'));

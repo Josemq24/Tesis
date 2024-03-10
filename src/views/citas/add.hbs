@@ -9,11 +9,19 @@
           <form action="/add" method="post">
             <div class="input-group mt-2">
               <label for="nombreDoctor" class="input-group-text">Doctor</label>
-              <input class="form-control" type="text" name="nombreDoctor" id="nombreDoctor" placeholder="Ejemplo: Miguel Quintero" autofocus required>
+              <select id="id_medico" name="id_medico">
+                {{#each doctores}}
+                  <option value={{this.id_medico}} name="id_medico" id="id_medico">{{this.nombre}}</option>
+                {{/each}}
+              </select>
+              {{!-- <input class="form-control" type="text" name="nombreDoctor" id="nombreDoctor" placeholder="Ejemplo: Miguel Quintero" autofocus required> --}}
+            </div>
+            <div>
+              <input type="hidden" value="{{decoded.id}}" name="id_paciente" id="id_paciente">
             </div>
             <div class="input-group mt-2">
               <label for="nombrePaciente" class="input-group-text">Paciente</label>
-              <input class="form-control" type="text" name="nombrePaciente" id="nombrePaciente" placeholder="Ejemplo: Luis Angel"autofocus required>
+              <input class="form-control" type="text" value="{{decoded.nombre}}" name="nombre" id="nombre" placeholder="Ejemplo: Luis Angel"autofocus required>
             </div>
             <div class="input-group mt-2">
               <label for="fecha" class="input-group-text">Fecha</label>

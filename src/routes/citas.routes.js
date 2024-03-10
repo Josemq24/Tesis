@@ -1,10 +1,18 @@
 import {Router} from 'express';
 import pool from '../database.js';
+// import { saludar} from "../controllers/usuarioController.js"
+import { generarJWT } from '../helpers/tokens.js';
+import jwt from "jsonwebtoken";
 
 const router = Router();
 
 const getAllDoctors = async () => {
     const [data] = await pool.query('SELECT * FROM medicos');
+    return data
+}
+
+const getPacienteLogged = async (email) => {
+    const [data] = await pool.query(`SELECT * FROM pacientes WHERE email = "${email}"`);
     return data
 }
 
@@ -15,29 +23,44 @@ router.get('/User', (req, res) => {
     res.render('indexUser');
 });
 
-router.get('/add', getAllDoctors);
+router.get('/add', async (req, res) => {
+    const {_token} = req.cookies;
+    const decoded = jwt.verify(_token, "papagaiodomar");
+    console.log(decoded)
+    const doctores = await getAllDoctors().then((doctors) => {return doctors});
+    console.log(doctores);
+    res.render('citas/add', {doctores, decoded});
+    
+});
 
 router.get('/addUser', (req, res) => {
     res.render('citas/addUser');
 });
 
-router.post('/auth',(req, res) => {
+router.post('/auth', async (req, res) => {
 	let email = req.body.email;
 	let password = req.body.password;
     if(email == "admin@admin.com" && password == "123"){
         return res.redirect('/adm')
     }else if (email == "usuario@usuario.com" && password == '123'){
-        return res.redirect('/User')
+        const paciente = await getPacienteLogged(req.body.email).then((paciente) => {return paciente})
+        const token = generarJWT({id: paciente[0].id_paciente, nombre: paciente[0].nombre});
+        // const decoded = jwt.verify(token, "papagaiodomar");
+        return res.cookie('_token', token, {
+            httpOnly: true,
+        }).redirect('/User')
     }else if(email == "doctor@doctor.com" && password =='123'){
         return res.redirect('/listDoc')
     }
         return res.redirect('/')
-}, )
+})
 
 router.post('/add', async (req, res) => {
+    console.log(req.body)
     try {
-       const {id_medico, id_paciente, fecha, hora} = req.body;
+       const {id_medico, nombre,id_paciente, fecha, hora} = req.body;
        const newCita = {
+           nombre,
            id_medico,
            id_paciente,
            fecha,
@@ -107,6 +130,7 @@ router.get('/edit/:id', async(req, res) => {
         const {id} = req.params;
         const [cita] = await pool.query('SELECT * FROM citas WHERE id = ?', [id]);
         const citaEdit = cita[0];
+        console.log(citaEdit, cita);
         res.render('citas/edit', {cita: citaEdit});
     }
     catch (err) {
