@@ -3,6 +3,11 @@ import pool from '../database.js';
 
 const router = Router();
 
+const getAllDoctors = async () => {
+    const [data] = await pool.query('SELECT * FROM medicos');
+    return data
+}
+
 router.get('/adm', (req, res) => {
     res.render('index');
 });
@@ -10,9 +15,7 @@ router.get('/User', (req, res) => {
     res.render('indexUser');
 });
 
-router.get('/add', (req, res) => {
-    res.render('citas/add');
-});
+router.get('/add', getAllDoctors);
 
 router.get('/addUser', (req, res) => {
     res.render('citas/addUser');
@@ -33,10 +36,10 @@ router.post('/auth',(req, res) => {
 
 router.post('/add', async (req, res) => {
     try {
-       const {nombreDoctor, nombrePaciente, fecha, hora} = req.body;
+       const {id_medico, id_paciente, fecha, hora} = req.body;
        const newCita = {
-           nombreDoctor,
-           nombrePaciente,
+           id_medico,
+           id_paciente,
            fecha,
            hora
        };
