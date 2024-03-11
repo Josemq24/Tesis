@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav" style="margin-left: auto;">
         <li class="nav-item">
-          <a class="nav-link" href="/adm">Inicio</a>
+          <a class="nav-link" href="/User">Inicio</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/addUser">Crear Cita</a>
@@ -41,7 +41,7 @@
                 <tbody style="background: aliceblue;">
                     {{#each citas}}
                         <tr>
-                            <td>{{nombreDoctor}}</td>
+                            <td>{{nombre}}</td>
                             <td>{{nombre}}</td>
                             <td>{{fecha}}</td>
                             <td>{{hora}}</td>
@@ -73,7 +73,7 @@
                     </div>
                     <div class="card-body">
                         <p>Presiona este boton para que puedas crear una cita</p>
-                        <a href="#" class="btn btn-primary">Ir a crear</a>
+                        <a href="addUser" class="btn btn-primary">Ir a crear</a>
                     
             </div>
         {{/if}}

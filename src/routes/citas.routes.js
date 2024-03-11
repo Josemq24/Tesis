@@ -126,7 +126,7 @@ router.get('/listUser', async(req, res) => {
 
 router.get('/listDoc', async(req, res) => {
     try {
-        const [result] = await pool.query('SELECT * FROM citas WHERE nombreDoctor = "Miguel Quintero"');
+        const [result] = await pool.query('SELECT * FROM citas ');
         res.render('citas/listDoc', {citas: result});
 
     }
@@ -141,6 +141,8 @@ router.get('/edit/:id', async(req, res) => {
         const [cita] = await pool.query('SELECT * FROM citas WHERE id = ?', [id]);
         const citaEdit = cita[0];
         console.log(citaEdit, cita);
+        const doctores = await getAllDoctors().then((doctors) => {return doctors});
+        console.log(doctores);
         res.render('citas/edit', {cita: citaEdit});
     }
     catch (err) {
