@@ -9,13 +9,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav" style="margin-left: auto;">
         <li class="nav-item">
-          <a class="nav-link" href="/adm">Inicio</a>
+          <a class="nav-link" href="/medico">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/addUser">Crear Cita</a>
+          <a class="nav-link" href="/add">Crear Cita</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/listUser">Lista</a>
+          <a class="nav-link" href="/medico/crear">Crear Médico</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/medico">Lista</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/">Cerrar Sesión</a>
@@ -26,31 +29,31 @@
 </nav>
 <div class="container">
     <div class="row nt-5">
-        <h3 class="text-center text-uppercase p-2">Lista de citas</h3>
-        {{#if citas}}
+        <h3 class="text-center text-uppercase p-2">Lista de Médicos</h3>
+        {{#if doctores}}
             <table class="table text-center">
                 <thead>
                     <tr class="table-dark">
-                        <th scope="col">Nombre Doctor</th>
-                        <th scope="col">Nombre Paciente</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Hora</th>
+                        <th scope="col">Nombre </th>
+                        <th scope="col">Especialidad</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Direccion</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody style="background: aliceblue;">
-                    {{#each citas}}
+                    {{#each doctores}}
                         <tr>
-                            <td>{{nombreDoctor}}</td>
-                            <td>{{nombre}}</td>
-                            <td>{{fecha}}</td>
-                            <td>{{hora}}</td>
+                            <td>{{this.nombre}}</td>
+                            <td>{{this.especialidad}}</td>
+                            <td>{{this.telefono}}</td>
+                            <td>{{this.direccion}}</td>
                             <td>
                                 <div class="btn-group">
-                                    <a href="/editUser/{{id}}" class="btn btn-warning p-2">
+                                    <a href="medico/editar/{{this.id_medico}}" class="btn btn-warning p-2">
                                         Editar
                                     </a>
-                                    <a href="/delete/{{id}}" class="btn btn-danger p-2">
+                                    <a href="medico/delete/{{this.id_medico}}" class="btn btn-danger p-2">
                                         Eliminar
                                     </a>
                                 </div>
@@ -69,11 +72,11 @@
             {{!-- <div class="col-md-12"> --}}
                 <div class="card text-center mx-auto" style="width: 350px;">
                     <div class="card-header">
-                        <h3>Debes crear una cita</h3>
+                        <h3>No hay doctores</h3>
                     </div>
                     <div class="card-body">
                         <p>Presiona este boton para que puedas crear una cita</p>
-                        <a href="#" class="btn btn-primary">Ir a crear</a>
+                        <a href="/medico/crear" class="btn btn-primary">Ir a crear</a>
                     
             </div>
         {{/if}}

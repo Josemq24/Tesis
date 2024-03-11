@@ -4,7 +4,10 @@ import { engine } from "express-handlebars";
 import {join, dirname} from "path";
 import {fileURLToPath} from "url";
 import citasRoutes from './routes/citas.routes.js';
+import medicoRoutes from "./routes/medicosRoutes.js"
 import cookieParser from "cookie-parser";
+// import indexRouts from "./routes/pdf.js";
+// import { construirPDF } from "./libs/pdfKit.js";
 
 //Initialization
 const app = express();
@@ -28,6 +31,7 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+// app. use(indexRouts);
 
 //Routes
 app.get("/", (req, res) => {
@@ -35,6 +39,7 @@ app.get("/", (req, res) => {
 });
 
 app.use(citasRoutes);
+app.use("/medico", medicoRoutes)
 
 //Public Files
 app.use(express.static(join(__dirname, 'public')));

@@ -19,6 +19,7 @@ const getPacienteLogged = async (email) => {
 router.get('/adm', (req, res) => {
     res.render('index');
 });
+
 router.get('/User', (req, res) => {
     res.render('indexUser');
 });
@@ -47,7 +48,7 @@ router.post('/auth', async (req, res) => {
 	let email = req.body.email;
 	let password = req.body.password;
     if(email == "admin@admin.com" && password == "123"){
-        return res.redirect('/adm')
+        return res.redirect('/list')
     }else if (email == "usuario@usuario.com" && password == '123'){
         const paciente = await getPacienteLogged(req.body.email).then((paciente) => {return paciente})
         const token = generarJWT({id: paciente[0].id_paciente, nombre: paciente[0].nombre});
@@ -98,6 +99,7 @@ router.post('/addUser', async (req, res) => {
         res.status(500).json({message: err.message});
     }
 });
+
 router.get('/list', async(req, res) => {
     try {
         const [result] = await pool.query('SELECT * FROM citas');
@@ -112,13 +114,14 @@ router.get('/list', async(req, res) => {
 
 router.get('/listUser', async(req, res) => {
     try {
-        const [result] = await pool.query('SELECT * FROM citas WHERE nombrePaciente ="Alexander Sanchez"');
+        const [result] = await pool.query('SELECT * FROM citas');
         res.render('citas/listUser', {citas: result});
 
     }
     catch (err) {
         res.status(500).json({message: err.message});
     }
+
 });
 
 router.get('/listDoc', async(req, res) => {

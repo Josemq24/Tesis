@@ -1,0 +1,87 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/adm">
+        <b style="color: #57aa90e0;">Clínica Docente los Jarales</b>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav" style="margin-left: auto;">
+        <li class="nav-item">
+          <a class="nav-link" href="/User">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/addUser">Crear Cita</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/listUser">Lista</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Cerrar Sesión</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container p-4">
+  <div class="row">
+    <div class="col-md-4 mx-auto">
+      <div class="card text-center">
+        <div class="card-header">
+          <h3 class="text-upeprcase">Añadir Medico</h3>
+        </div>
+        <div class="card-body">
+          <form action="/medico/crear" method="post">
+            <div class="input-group mt-2">
+              <label for="nombre" class="input-group-text">Nombre del doctor</label>
+              <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Ejemplo: Luis Angel"autofocus required>
+            </div>
+            <div class="input-group mt-2">
+                <label for="especialidad" class="input-group-text">Especialidad</label>
+                <select name="especialidad" id="especialidad">
+                    <option value="Cardiologia y Laboratorio de exploracion cardiovascular">Cardiologia y Laboratorio de exploracion cardiovascular</option>
+                    <option value="Cirugia cardiovascular">Cirugia cardiovascular</option>
+                    <option value="Cirugia general y laparoscopia avanzada">Cirugia general y laparoscopia avanzada</option>
+                    <option value="Cirugia oncologica">Cirugia oncologica</option>
+                    <option value="Ciruga pediatrica">Ciruga pediatrica</option>
+                    <option value="Cirugia plastica">Cirugia plastica</option>
+                    <option value="Coloproctologia">Coloproctologia</option>
+                    <option value="Dermatologia">Dermatologia</option>
+                    <option value="Fisiatria">Fisiatria</option>
+                    <option value="Gastronenterologia">Gastronenterologia</option>
+                    <option value="Gineco - Obstetricia">Gineco - Obstetricia</option>
+                    <option value="Metabolismo mineral y oseo">Metabolismo mineral y oseo</option>
+                    <option value="Infectologia">Infectologia</option>
+                    <option value="Inmunoalergologia">Inmunoalergologia</option>
+                    <option value="Medicia critica">Medicia critica</option>
+                    <option value="Medicina interna">Medicina interna</option>
+                    <option value="Nefrologia">Nefrologia</option>
+                    <option value="Neurocirugia">Neurocirugia</option>
+                    <option value="Neumonologo">Neumonologo</option>
+                    <option value="Nutricionologia clinica">Nutricionologia clinica</option>
+                    <option value="Odontologia">Odontologia</option>
+                    <option value="Oftalmologia">Oftalmologia</option>
+                    <option value="Otorrinolaringologia">Otorrinolaringologia</option>
+                    <option value="Pediatria">Pediatria</option>
+                    <option value="Sexologia">Sexologia</option>
+                    <option value="Traumatologia y ortopedia">Traumatologia y ortopedia</option>
+                    <option value="Urologia">Urologia</option>
+                </select>
+            </div>
+            <div class="input-group mt-2">
+                <label for="telefono" class="input-group-text">Telefono</label>
+                <input class="form-control" type="number" name="telefono" id="telefono" required>
+            </div>
+            <div class="input-group mt-2">
+                <label for="direccion" class="input-group-text">Direccion</label>
+                <input class="form-control" type="text" name="direccion" id="direccion" required>
+            </div>
+            <div class="input-group mt-4 d-grid gap-2">
+              <button class="btn btn-succes">Añadir medico</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -21,6 +21,8 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "mysql2": "^3.9.2",
+    "pdfkit": "^0.14.0",
+    "pdfkit-table": "^0.1.99",
     "sequelize": "^6.37.1"
   },
   "devDependencies": {
