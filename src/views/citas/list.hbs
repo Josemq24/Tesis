@@ -29,7 +29,11 @@
 </nav>
 <div class="container">
     <div class="row nt-5">
-        <h3 class="text-center text-uppercase p-2">Lista de citas</h3>
+        <h3 class="text-center text-uppercase p-2">
+          Lista de citas
+          <a href="/generate-pdf" class="btn btn-primary p-2">PDF</a>
+        </h3>
+        
         {{#if citas}}
             <table class="table text-center">
                 <thead>
@@ -44,10 +48,10 @@
                 <tbody style="background: aliceblue;">
                     {{#each citas}}
                         <tr>
-                            <td>{{nombreDoctor}}</td>
+                            <td>{{nombre_medico}}</td>
                             <td>{{nombre}}</td>
-                            <td>{{fecha}}</td>
-                            <td>{{hora}}</td>
+                            <td>{{this.fecha}}</td>
+                            <td>{{this.hora}}</td>
                             <td>
                                 <div class="btn-group">
                                     <a href="/edit/{{id}}" class="btn btn-warning p-2">

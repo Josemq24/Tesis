@@ -32,16 +32,16 @@
                 <tbody style="background: aliceblue;">
                     {{#each citas}}
                         <tr>
-                            <td>{{nombreDoctor}}</td>
-                            <td>{{nombrePaciente}}</td>
+                            <td>{{nombre_medico}}</td>
+                            <td>{{nombre}}</td>
                             <td>{{fecha}}</td>
                             <td>{{hora}}</td>
                             <td>
                                 <div class="btn-group">
-                                    <a href="/edit/{{id}}" class="btn btn-warning p-2">
+                                    <a href="/editDoc/{{id}}" class="btn btn-warning p-2">
                                         Editar
                                     </a>
-                                    <a href="/delete/{{id}}" class="btn btn-danger p-2">
+                                    <a href="/deleteDoc/{{id}}" class="btn btn-danger p-2">
                                         Eliminar
                                     </a>
                                 </div>

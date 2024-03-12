@@ -15,7 +15,7 @@
           <a class="nav-link" href="/addUser">Crear Cita</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/listUser">Lista</a>
+          <a class="nav-link" href="/listUser/{{id}}">Lista</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/">Cerrar Sesión</a>
@@ -41,7 +41,7 @@
                 <tbody style="background: aliceblue;">
                     {{#each citas}}
                         <tr>
-                            <td>{{nombre}}</td>
+                            <td>{{nombre_medico}}</td>
                             <td>{{nombre}}</td>
                             <td>{{fecha}}</td>
                             <td>{{hora}}</td>
@@ -50,7 +50,7 @@
                                     <a href="/editUser/{{id}}" class="btn btn-warning p-2">
                                         Editar
                                     </a>
-                                    <a href="/delete/{{id}}" class="btn btn-danger p-2">
+                                    <a href="/deleteUser/{{id}}" class="btn btn-danger p-2">
                                         Eliminar
                                     </a>
                                 </div>

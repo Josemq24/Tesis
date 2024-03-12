@@ -15,7 +15,7 @@ const insertMedico = async (req,res) => {
             direccion
         }
         await pool.query("INSERT INTO medicos set ?", [newMedico])
-        res.redirect("medicos/main")
+        res.redirect("/medico")
     }catch(error){
 
     }

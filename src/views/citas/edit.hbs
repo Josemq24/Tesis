@@ -35,18 +35,17 @@
           <h3 class="text-upeprcase">EDITANDO CITA</h3>
         </div>
         <div class="card-body">
-          <form action="/edit/{{cita.id}}" method="post">
+          <form action="/editUser/{{cita.id}}" method="post">
             <div class="input-group mt-2">
-              <label for="nombreDoctor" class="input-group-text">Doctor</label>
+             <label for="nombreDoctor" class="input-group-text">Doctor</label>
               <select id="id_medico" name="id_medico">
                 {{#each doctores}}
                   <option value={{this.id_medico}} name="id_medico" id="id_medico">{{this.nombre}}</option>
                 {{/each}}
               </select>
-            </div>
             <div class="input-group mt-2">
               <label for="nombrePaciente" class="input-group-text">Paciente</label>
-              <input class="form-control" type="text" name="nombrePaciente" id="nombrePaciente" value="{{cita.nombrePaciente}}" placeholder="Ejemplo: Luis Angel"autofocus required>
+              <input readonly class="form-control" type="text" name="nombrePaciente" id="nombrePaciente" value="{{cita.nombre}}" placeholder="Ejemplo: Luis Angel"autofocus required>
             </div>
             <div class="input-group mt-2">
               <label for="fecha" class="input-group-text">Fecha</label>

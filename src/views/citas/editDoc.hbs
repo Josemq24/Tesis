@@ -1,3 +1,20 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/adm">
+        <b style="color: #57aa90e0;">Clínica Docente los Jarales</b>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav" style="margin-left: auto;">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Cerrar Sesión</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <div class="container p-4">
   <div class="row">
     <div class="col-md-4 mx-auto">
@@ -8,12 +25,15 @@
         <div class="card-body">
           <form action="/editDoc/{{cita.id}}" method="post">
             <div class="input-group mt-2">
-              <label for="nombreDoctor" class="input-group-text">Doctor</label>
-              <input class="form-control" type="text" name="nombreDoctor" id="nombreDoctor" value="{{cita.nombreDoctor}}" placeholder="Ejemplo: Miguel Quintero" autofocus required>
-            </div>
+             <label for="nombreDoctor" class="input-group-text">Doctor</label>
+              <select id="id_medico" name="id_medico">
+                {{#each doctores}}
+                  <label readonly value={{this.id_medico}} name="id_medico" id="id_medico">{{this.nombre}}</label>
+                {{/each}}
+              </select>
             <div class="input-group mt-2">
               <label for="nombrePaciente" class="input-group-text">Paciente</label>
-              <input class="form-control" type="text" name="nombrePaciente" id="nombrePaciente" value="{{cita.nombrePaciente}}" placeholder="Ejemplo: Luis Angel"autofocus required>
+              <input readonly class="form-control" type="text" name="nombrePaciente" id="nombrePaciente" value="{{cita.nombre}}" placeholder="Ejemplo: Luis Angel"autofocus required>
             </div>
             <div class="input-group mt-2">
               <label for="fecha" class="input-group-text">Fecha</label>
