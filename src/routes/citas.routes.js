@@ -43,7 +43,7 @@ router.get('/addUser', async (req, res) => {
     
 });
 
-router.post('/auth', async (req, res) => {
+router.post('/auth', async (req, res) => { 
 	let email = req.body.email;
 	let password = req.body.password;
     if(email == "admin@admin.com" && password == "123"){
