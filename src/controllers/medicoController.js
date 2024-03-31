@@ -2,9 +2,14 @@ import  jwt from 'jsonwebtoken';
 import pool from '../database.js';
 
 const mostrarCitas = async(req, res) => {
-    const {id} = req.params 
+
+    const {_token} = req.cookies;
+    const decoded = jwt.verify(_token, "papagaiodomar")
+    const {id} = decoded;
+    console.log(decoded);
     try {
         const [result] = await pool.query('SELECT citas.id as id, citas.nombre as nombre, medicos.nombre as nombre_medico, DATE_FORMAT(citas.fecha, "%Y-%m-%d") AS fecha, citas.hora FROM citas INNER JOIN medicos ON citas.id_medico = medicos.id_medico WHERE citas.id_medico =?', [id]);
+
         res.render('citas/listDoc', {citas: result});
     }
     catch (err) {
@@ -39,7 +44,7 @@ const editarCitaPost = async (req, res) => {
             hora
         };
         await pool.query('UPDATE citas SET ? WHERE id = ?', [editCita, id]);
-        res.redirect('/listDoc/2');
+        res.redirect('/listDoc');
         
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -50,7 +55,7 @@ const eliminarCita = async (req, res) => {
         try {
             const {id} = req.params;
             await pool.query('DELETE FROM citas WHERE id = ?', [id]);
-            res.redirect('/listDoc/2');
+            res.redirect('/listDoc');
         }
         catch (err) {
             res.status(500).json({message: err.message});

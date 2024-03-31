@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" href="/adm">
         <b style="color: #57aa90e0;">Clínica Docente los Jarales</b>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,14 +27,9 @@
 			<div class="card-header">
                 <img class="card-img-top mx-auto m-2" src="/img/logo.jpg" alt="Logo" style="width: 200px;
                 height: 200px; display:block">
-  				<h3 class="text-uppercase text-center p-4">Login Para Los Pacientes</h3>
+  				<h3 class="text-uppercase text-center p-4">Login para los Medicos</h3>
 				<div class="card-body text-center">
-          {{#if error}}
-            {{#each error}}
-              <p style="color: red;">{{msg}}</p>
-            {{/each}}
-          {{/if}}
-					<form action="/auth" method="post">
+					<form action="/authDoc" method="post">
 						<input type="email" name="email" placeholder="email" id="email" required>
 						<input type="password" name="password" placeholder="Password" id="password" required>
 						<input type="submit" value="Login">

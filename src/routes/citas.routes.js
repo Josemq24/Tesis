@@ -1,6 +1,5 @@
 import {Router} from 'express';
 import pool from '../database.js';
-// import { saludar} from "../controllers/usuarioController.js"
 import { generarJWT } from '../helpers/tokens.js';
 import jwt from "jsonwebtoken";
 import PDFDocument from "pdfkit";
@@ -9,24 +8,35 @@ import {index, agregarCita, formularioAgregarCita, mostrarCitas, formularioEdita
 
 const router = Router();
 
+// MIDDLEWARE QUE VERIFICA SI UN USUARIO ESTA REGISTRADO
+
+const isLogged = async (req, res, next) => {
+    const {_token} = req.cookies
+    if(_token){
+        next()
+    }else{
+        res.redirect('/')
+    }
+}
+
 router.get('/registro', formularioRegistro);
 //USUARIO
 
 router.post("/registro", registro)
 
-router.get('/User', index);
+router.get('/User', isLogged, index);
 
-router.get('/addUser', formularioAgregarCita);
+router.get('/addUser', isLogged, formularioAgregarCita);
 
-router.post('/addUser', agregarCita);
+router.post('/addUser', isLogged, agregarCita);
   
-router.get('/listUser', mostrarCitas);
+router.get('/listUser', isLogged, mostrarCitas);
 
-router.get('/editUser/:id', formularioEditarCita);
+router.get('/editUser/:id', isLogged, formularioEditarCita);
 
-router.post('/editUser/:id', editarCita);
+router.post('/editUser/:id', isLogged, editarCita);
 
-router.get('/deleteUser/:id', eliminarCita);
+router.get('/deleteUser/:id', isLogged, eliminarCita);
 
 //MEDICO
 
@@ -37,6 +47,7 @@ router.get('/deleteUser/:id', eliminarCita);
 //router.post('/editDoc/:id', );
 
 //router.get('/deleteDoc/:id', );
+
 
 //ADMINISTRADOR
 
@@ -85,7 +96,6 @@ router.get('/list', async(req, res) => {
 });
 
 router.get('/edit/:id', async(req, res) => {
-    // 'SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora FROM citas c JOIN medicos m ON c.id_medico = m.id_medico'
     try {
         const { id } = req.params;
         const [result] = await pool.query('SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora, m.nombre AS nombre_medico FROM citas c JOIN medicos m ON c.id_medico = m.id_medico WHERE c.id = ?', [id]);
@@ -126,14 +136,55 @@ router.get('/delete/:id', async (req, res) => {
         res.status(500).json({message: err.message});
     }
 });
+
+router.get('/logout', async(req, res) => {
+    // Destruyes la cookie y redireccionas a la vista que quieras
+    res.cookie('_token','', {
+        maxAge: 0
+    }).redirect('/')
+})
  
-//AUTENTICACION
+//AUTENTICACION DE LOS CLIENTES
 router.post('/auth', async (req, res) => { 
+    // Extraemos el email y la contrasena del body
 	let email = req.body.email;
 	let password = req.body.password;
-    //let [result] = await pool.query("Select id_medico where email = ?", [email])
-    res.render('indexUser')
+
+    // Buscamos al userClient que este registrado con el email ingresado
+    const [userCliente] =  await pool.query("SELECT * FROM pacientes WHERE email = ?", [email])
+
+    // verificamos por console.log
+    // console.log(userCliente)
+
+    // Verificamos si la contraseña ingresada es correcta para el email dado
+    const passwordCorrect = userCliente.length === 0 ? false : password === userCliente[0].contrasena
+
+    // Si el usuario no existe, o la contraseña envia mensaje de error
+    if(!(userCliente && passwordCorrect)) {
+        // Retornar un res.render es redundante y no es necesario
+        return res.render("login", {
+            error: [{msg: "Email o contraseña invalida"}]
+       })
+    }else{
+        // Si los datos son correctos, creamos el usuario para registrar en el token
+        const userForToken = {
+            id: userCliente[0].id_paciente,
+            nombre: userCliente[0].nombre,
+            apellido: userCliente[0].apellido,
+            email: userCliente[0].email,
+        }
+        const token = generarJWT(userForToken)
+
+        // Salvamos la cookie
+        return res.cookie("_token", token, {
+            httpOnly: true,
+            secure: true
+        }).redirect("/listUser")
+    }
 });
+
+//AUTENTICACION MEDICOS
+//router.post('')
 
 //GENERACION DE PDF
 
