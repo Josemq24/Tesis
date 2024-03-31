@@ -4,7 +4,7 @@ import { engine } from "express-handlebars";
 import {join, dirname} from "path";
 import {fileURLToPath} from "url";
 import citasRoutes from './routes/citas.routes.js';
-import medicoRoutes from "./routes/medicosRoutes.js"
+import medicosRoutes from "./routes/medicosRoutes.js"
 import cookieParser from "cookie-parser";
 
 //Initialization
@@ -35,8 +35,8 @@ app.get("/", (req, res) => {
     res.render('login');
 });
 
-app.use(citasRoutes);
-app.use("/medico", medicoRoutes)
+app.use(citasRoutes); /* localhost:4000/citas/add */
+app.use(medicosRoutes); /* localhost:4000/medicos/add */
 
 //Public Files
 app.use(express.static(join(__dirname, 'public')));
@@ -44,3 +44,4 @@ app.use(express.static(join(__dirname, 'public')));
 //Run Server
 app.listen(app.get("port"), () =>
 console.log("Server on port", app.get("port")));
+ 
