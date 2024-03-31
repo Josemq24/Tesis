@@ -131,9 +131,9 @@ router.get('/delete/:id', async (req, res) => {
 router.post('/auth', async (req, res) => { 
 	let email = req.body.email;
 	let password = req.body.password;
-    let [result] = await pool.query("Select id_medico where email = ?", [email])
-
-})
+    //let [result] = await pool.query("Select id_medico where email = ?", [email])
+    res.render('indexUser')
+});
 
 //GENERACION DE PDF
 

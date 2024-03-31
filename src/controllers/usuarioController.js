@@ -43,28 +43,13 @@ const agregarCita = async (req,res) => {
 
 const mostrarCitas = async(req, res) => {
 
+    const {_token} = req.cookies;
+    const decoded = jwt.verify(_token, "papagaiodomar");
+    const doctores = await getAllDoctors().then((doctors) => {return doctors});
     try {
-        const {nombre} = req.body;
-        // const [result] = await pool.query('SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora FROM citas c JOIN medicos m ON c.id_medico = m.id_medico');
-        // const [result] = await pool.query(
-        //     `SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora
-        //     FROM citas c
-        //     JOIN medicos m ON c.id_medico = m.id_medico
-        //     WHERE c.id_paciente = ?`,[id]
-            
-        //   );
-
-        
-        const nombrePaciente = "Joselinho"
-        //USAR ESTE
-
-        // const [result] = await pool.query(
-        // `SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora
-        // FROM citas c
-        // JOIN medicos m ON c.id_medico = m.id_medico
-        // WHERE c.nombre = ?`,
-        // [nombrePaciente]
-        // );
+        const {nombre} = req.body;      
+        const nombrePaciente = decoded.nombre;
+        //const {nombrePaciente} =req.body;
 
         const [result] = await pool.query(
             `SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora
@@ -149,11 +134,11 @@ const registro = async (req,res) => {
         return edad;
     };
 
-    // if(existeUsuario.length !== 0){
-    //     return res.render("register", {
-    //         error: [{msg: "El email ya esta en uso, por favor introduzca otro"}]
-    //     })
-    // }
+     if(existeUsuario.length !== 0){
+         return res.render("register", {
+             error: [{msg: "El email ya esta en uso, por favor introduzca otro"}]
+        })
+     }
 
     const newUsuario = {
         email,
