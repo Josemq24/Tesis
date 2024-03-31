@@ -5,13 +5,40 @@ import { generarJWT } from '../helpers/tokens.js';
 import jwt from "jsonwebtoken";
 import PDFDocument from "pdfkit";
 import {getAllCitas} from "../controllers/citasController.js";
+import {index, agregarCita, formularioAgregarCita, mostrarCitas, formularioEditarCita, editarCita, eliminarCita, registro, formularioRegistro} from "../controllers/usuarioController.js";
 
 const router = Router();
 
-const getAllDoctors = async () => {
-    const [data] = await pool.query('SELECT * FROM medicos');
-    return data
-}
+router.get('/registro', formularioRegistro);
+//USUARIO
+
+router.post("/registro", registro)
+
+router.get('/User', index);
+
+router.get('/addUser', formularioAgregarCita);
+
+router.post('/addUser', agregarCita);
+  
+router.get('/listUser', mostrarCitas);
+
+router.get('/editUser/:id', formularioEditarCita);
+
+router.post('/editUser/:id', editarCita);
+
+router.get('/deleteUser/:id', eliminarCita);
+
+//MEDICO
+
+//router.get('/listDoc/:id', );
+
+//router.get('/editDoc/:id', );
+
+//router.post('/editDoc/:id', );
+
+//router.get('/deleteDoc/:id', );
+
+//ADMINISTRADOR
 
 const getPacienteLogged = async (email) => {
     const [data] = await pool.query(`SELECT * FROM pacientes WHERE email = "${email}"`);
@@ -22,47 +49,8 @@ router.get('/adm', (req, res) => {
     res.render('index');
 });
 
-router.get('/User', (req, res) => {
-    res.render('indexUser');
-});
-
-router.get('/add', async (req, res) => {
-    const doctores = await getAllDoctors().then((doctors) => {return doctors});
-    console.log(doctores);
-    res.render('citas/add', {doctores});
-    
-});
-
-router.get('/addUser', async (req, res) => {
-    const {_token} = req.cookies;
-    const decoded = jwt.verify(_token, "papagaiodomar");
-    console.log(decoded)
-    const doctores = await getAllDoctors().then((doctors) => {return doctors});
-    console.log(doctores);
-    res.render('citas/addUser', {doctores, decoded});
-    
-});
-
-router.post('/auth', async (req, res) => { 
-	let email = req.body.email;
-	let password = req.body.password;
-    if(email == "admin@admin.com" && password == "123"){
-        return res.redirect('/list')
-    }else if (email == "usuario@usuario.com" && password == '123'){
-        const paciente = await getPacienteLogged(req.body.email).then((paciente) => {return paciente})
-        const token = generarJWT({id: paciente[0].id_paciente, nombre: paciente[0].nombre});
-        //const decoded = jwt.verify(token, "papagaiodomar");
-        return res.cookie('_token', token, {
-            httpOnly: true,
-        }).redirect('/User')
-    }else if(email == "doctor@doctor.com" && password =='123'){
-        return res.redirect('/listDoc/2')
-    }
-        return res.redirect('/')
-})
 
 router.post('/add', async (req, res) => {
-    console.log(req.body)
     try {
        const {id_medico, nombre,id_paciente, fecha, hora} = req.body;
        const newCita = {
@@ -80,94 +68,22 @@ router.post('/add', async (req, res) => {
     }
 });
 
-router.post('/addUser', async (req, res) => {
-    console.log(req.body)
-    try {
-       const {id_medico, nombre,id_paciente, fecha, hora} = req.body;
-       const newCita = {
-           nombre,
-           id_medico,
-           id_paciente,
-           fecha,
-           hora
-       };
-       await pool.query('INSERT INTO citas set ?', [newCita]);
-       res.redirect('/listUser');
-    }
-    catch (err) {
-        res.status(500).json({message: err.message});
-    }
+router.get('/add', async (req, res) => {
+    const doctores = await getAllDoctors().then((doctors) => {return doctors});
+    res.render('citas/add', {doctores});
+    
 });
 
 router.get('/list', async(req, res) => {
     try {
         const [result] = await pool.query('SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora FROM citas c JOIN medicos m ON c.id_medico = m.id_medico');
         const doctores = await getAllDoctors().then((doctors) => {return doctors});
-        console.log(doctores);
-        console.log(result);
         res.render('citas/list', {citas: result, doctores});
     } 
     catch (err) {
         res.status(500).json({message: err.message});
     }
 
-});
-
-router.get('/listUser', async(req, res) => {
-    try {
-        const {nombre} = req.body;
-        // const [result] = await pool.query('SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora FROM citas c JOIN medicos m ON c.id_medico = m.id_medico');
-        // const [result] = await pool.query(
-        //     `SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora
-        //     FROM citas c
-        //     JOIN medicos m ON c.id_medico = m.id_medico
-        //     WHERE c.id_paciente = ?`,[id]
-            
-        //   );
-
-       
-        const nombrePaciente = "Joselinho"
-        //USAR ESTE
-
-        // const [result] = await pool.query(
-        // `SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora
-        // FROM citas c
-        // JOIN medicos m ON c.id_medico = m.id_medico
-        // WHERE c.nombre = ?`,
-        // [nombrePaciente]
-        // );
-
-        const [result] = await pool.query(
-            `SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora
-            FROM citas c
-            JOIN medicos m ON c.id_medico = m.id_medico
-            WHERE c.nombre = ?`,
-            [nombrePaciente]
-          );
-          
-        console.log(result);
-        res.render('citas/listUser', {citas: result});
-
-    }
-    catch (err) {
-        res.status(500).json({message: err.message});
-    }
-
-});
-
-router.get('/listDoc/:id', async(req, res) => {
-    const {id} =req.params
-
-    try {
-        const [result] = await pool.query('SELECT citas.nombre as nombre, medicos.nombre as nombre_medico, DATE_FORMAT(citas.fecha, "%Y-%m-%d") AS fecha, citas.hora FROM citas INNER JOIN medicos ON citas.id_medico = medicos.id_medico WHERE citas.id_medico =?', [id]);
-        
-        console.log('RESULT LISTDOC' + result)
-        res.render('citas/listDoc', {citas: result});
-
-    }
-    catch (err) {
-        res.status(500).json({message: err.message});
-    }
 });
 
 router.get('/edit/:id', async(req, res) => {
@@ -177,10 +93,8 @@ router.get('/edit/:id', async(req, res) => {
         const [result] = await pool.query('SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora, m.nombre AS nombre_medico FROM citas c JOIN medicos m ON c.id_medico = m.id_medico WHERE c.id = ?', [id]);
         const citaEdit = result[0];
         const [doctores] = await pool.query('SELECT * from medicos');
-        console.log(doctores)
+
         res.render('citas/edit', { cita: citaEdit, doctores });
-        //console.log('Esta es la salida de citaEdit' + citaEdit)
-        console.log('result'+result[0])
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -189,7 +103,6 @@ router.get('/edit/:id', async(req, res) => {
 router.post('/edit/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(req.body)
         const { id_medico, nombrePaciente, fecha, hora } = req.body;
         const editCita = {
             id_medico,
@@ -204,76 +117,6 @@ router.post('/edit/:id', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
-
-
-router.get('/editDoc/:id', async(req, res) => {
-    try {
-        const { id } = req.params;
-        const [result] = await pool.query('SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora, m.nombre AS nombre_medico FROM citas c JOIN medicos m ON c.id_medico = m.id_medico WHERE c.id = ?', [id]);
-        const citaEdit = result[0];
-        const [doctores] = await pool.query('SELECT * from medicos');
-        console.log(doctores)
-        res.render('citas/editDoc', { cita: citaEdit, doctores });
-        //console.log('Esta es la salida de citaEdit' + citaEdit)
-        console.log('result'+result[0])
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-
-router.post('/editDoc/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        console.log(req.body)
-        const { id_medico, nombrePaciente, fecha, hora } = req.body;
-        const editCita = {
-            id_medico,
-            nombre: nombrePaciente,
-            fecha,
-            hora
-        };
-        await pool.query('UPDATE citas SET ? WHERE id = ?', [editCita, id]);
-        res.redirect('/listDoc');
-        
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-
-router.get('/editUser/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const [result] = await pool.query('SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora, m.nombre AS nombre_medico FROM citas c JOIN medicos m ON c.id_medico = m.id_medico WHERE c.id = ?', [id]);
-        const citaEdit = result[0];
-        const [doctores] = await pool.query('SELECT * from medicos');
-        console.log(doctores)
-        res.render('citas/editUser', { cita: citaEdit, doctores });
-        //console.log('Esta es la salida de citaEdit' + citaEdit)
-        console.log('result'+result[0])
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-
-router.post('/editUser/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        console.log(req.body)
-        const { id_medico, nombrePaciente, fecha, hora } = req.body;
-        const editCita = {
-            id_medico,
-            nombre: nombrePaciente,
-            fecha,
-            hora
-        };
-        await pool.query('UPDATE citas SET ? WHERE id = ?', [editCita, id]);
-        res.redirect('/listUser');
-        
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-
 
 router.get('/delete/:id', async (req, res) => {
     try {
@@ -285,28 +128,16 @@ router.get('/delete/:id', async (req, res) => {
         res.status(500).json({message: err.message});
     }
 });
+ 
+//AUTENTICACION
+router.post('/auth', async (req, res) => { 
+	let email = req.body.email;
+	let password = req.body.password;
+    let [result] = await pool.query("Select id_medico where email = ?", [email])
 
-router.get('/deleteUser/:id', async (req, res) => {
-    try {
-        const {id} = req.params;
-        await pool.query('DELETE FROM citas WHERE id = ?', [id]);
-        res.redirect('/listUser');
-    }
-    catch (err) {
-        res.status(500).json({message: err.message});
-    }
-});
+})
 
-router.get('/deleteDoc/:id', async (req, res) => {
-    try {
-        const {id} = req.params;
-        await pool.query('DELETE FROM citas WHERE id = ?', [id]);
-        res.redirect('/listDoc');
-    }
-    catch (err) {
-        res.status(500).json({message: err.message});
-    }
-});
+//GENERACION DE PDF
 
 router.get('/generate-pdf', async (req, res) => {
     try {
@@ -362,7 +193,6 @@ router.get('/generate-pdf', async (req, res) => {
         // Finalizar el stream de PDFDocument
         doc.end();
     } catch (err) {
-        console.error(err);
         res.status(500).json({ message: err.message });
     }
 });

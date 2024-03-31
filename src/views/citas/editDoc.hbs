@@ -26,9 +26,9 @@
           <form action="/editDoc/{{cita.id}}" method="post">
             <div class="input-group mt-2">
              <label for="nombreDoctor" class="input-group-text">Doctor</label>
-              <select id="id_medico" name="id_medico">
+              <select id="id_medico" name="id_medico" >
                 {{#each doctores}}
-                  <label readonly value={{this.id_medico}} name="id_medico" id="id_medico">{{this.nombre}}</label>
+                  <option readonly value={{this.id_medico}} name="id_medico" id="id_medico">{{this.nombre}}</option>
                 {{/each}}
               </select>
             <div class="input-group mt-2">
