@@ -14,7 +14,7 @@ const crearMedico = async (req,res) =>{
 
 const mostrarDoctores = async (req,res) =>{
     const doctores = await getAllDoctors().then((doctors) => {return doctors})
-    res.render("medicos/main.hbs", {doctores})
+    res.render("citas/docs.hbs", {doctores})
 };
 
 const insertMedico = async (req,res) => {

@@ -38,9 +38,9 @@
           <form action="/add" method="post">
             <div class="input-group mt-2">
               <label for="nombreDoctor" class="input-group-text">Doctor</label>
-              <select id="id_medico" name="id_medico">
+              <select id="id_medico" name="id_medico" class="form-select">
                 {{#each doctores}}
-                  <option value={{this.id_medico}} name="id_medico" id="id_medico">{{this.nombre}}</option>
+                  <option value={{this.id_medico}} name="id_medico" id="id_medico">{{this.nombre}}, {{this.especialidad}}</option>
                 {{/each}}
               </select>
               {{!-- <input class="form-control" type="text" name="nombreDoctor" id="nombreDoctor" placeholder="Ejemplo: Miguel Quintero" autofocus required> --}}

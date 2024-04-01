@@ -38,9 +38,9 @@
           <form action="/edit/{{cita.id}}" method="post">
             <div class="input-group mt-2">
              <label for="nombreDoctor" class="input-group-text">Doctor</label>
-              <select id="id_medico" name="id_medico">
+              <select id="id_medico" name="id_medico" class="form-select">
                 {{#each doctores}}
-                  <option value={{this.id_medico}} name="id_medico" id="id_medico">{{this.nombre}}</option>
+                  <option value={{this.id_medico}} name="id_medico" id="id_medico">{{this.nombre}}, {{this.especialidad}}</option>
                 {{/each}}
               </select>
             <div class="input-group mt-2">

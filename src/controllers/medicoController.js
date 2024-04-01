@@ -6,9 +6,8 @@ const mostrarCitas = async(req, res) => {
     const {_token} = req.cookies;
     const decoded = jwt.verify(_token, "papagaiodomar")
     const {id} = decoded;
-    console.log(decoded);
     try {
-        const [result] = await pool.query('SELECT citas.id as id, citas.nombre as nombre, medicos.nombre as nombre_medico, DATE_FORMAT(citas.fecha, "%Y-%m-%d") AS fecha, citas.hora FROM citas INNER JOIN medicos ON citas.id_medico = medicos.id_medico WHERE citas.id_medico =?', [id]);
+        const [result] = await pool.query('SELECT citas.id as id, citas.nombre as nombre, medicos.nombre as nombre_medico, DATE_FORMAT(citas.fecha, "%a %d-%m-%Y") AS fecha, citas.hora FROM citas INNER JOIN medicos ON citas.id_medico = medicos.id_medico WHERE citas.id_medico =?', [id]);
 
         res.render('citas/listDoc', {citas: result});
     }

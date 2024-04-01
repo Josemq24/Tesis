@@ -35,9 +35,9 @@
           <form action="/editUser/{{cita.id}}" method="post">
             <div class="input-group mt-2">
              <label for="nombreDoctor" class="input-group-text">Doctor</label>
-              <select id="id_medico" name="id_medico">
+              <select id="id_medico" name="id_medico" class="form-select">
                 {{#each doctores}}
-                  <option value={{this.id_medico}} name="id_medico" id="id_medico">{{this.nombre}}</option>
+                  <option value={{this.id_medico}} name="id_medico" id="id_medico">{{this.nombre}}, {{this.especialidad}}</option>
                 {{/each}}
               </select>
             <div class="input-group mt-2">
@@ -53,7 +53,7 @@
               <input class="form-control" type="time" name="hora" id="hora" value="{{cita.hora}}" required>
             </div>
             <div class="input-group mt-4 d-grid gap-2">
-              <button class="btn btn-succes">Actualizar</button>
+              <button class="btn btn-warning">Actualizar</button>
           </form>
         </div>
       </div>

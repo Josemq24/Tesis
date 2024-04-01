@@ -24,6 +24,6 @@ router.post('/crear', insertMedico)
 router.get('/docs', mostrarDoctores)
 router.get('/editar/:id', mostrarEditarDoctor)
 router.post('/editar/:id', editarDoctor)
-router.get('/deleteDoc/:id', eliminarDoctor)
+router.get('/deleteDoctor/:id', eliminarDoctor)
 
 export default router

@@ -1,6 +1,8 @@
 import  jwt from 'jsonwebtoken';
 import pool from '../database.js';
 import {generarJWT} from "../helpers/tokens.js"
+import {spawn} from "child_process"
+
 
 const saludar = (req,res)=>{
     console.log("hola")
@@ -25,7 +27,6 @@ const formularioAgregarCita = async (req,res) => {
 const agregarCita = async (req,res) => {
     try {
         const {id_medico, nombre, id_paciente, fecha, hora} = req.body;
-        console.log(fecha);
         const newCita = {
             nombre,
             id_medico,
@@ -180,6 +181,22 @@ const formularioRegistro = async (req,res) => {
 //CHATBOT
 
 const useBot = async (req,res) => {
+    const vector = req.body
+    const prueba = spawn("python", vector)
+
+    try {
+        prueba.stdout.on("data", (data)=>{
+            const respuesta = data.toString()
+            console.log(respuesta)
+            res.json({
+                resultado: respuesta,
+                estado: "ok"
+            })
+        })
+    } catch(error){
+        console.log(error)
+    }
+
     res.render('citas/bot');
 };
 
