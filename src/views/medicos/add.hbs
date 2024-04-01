@@ -12,16 +12,16 @@
           <a class="nav-link" href="/add">Crear Cita</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/medico/crear">Crear Médico</a>
+          <a class="nav-link" href="/crear">Crear Médico</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/medico">Lista de Médicos</a>
+          <a class="nav-link" href="/docs">Lista de Médicos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/list">Lista de Citas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/">Cerrar Sesión</a>
+          <a class="nav-link" href="/logout">Cerrar Sesión</a>
         </li>
       </ul>
     </div>
@@ -35,14 +35,18 @@
           <h3 class="text-upeprcase">Añadir Medico</h3>
         </div>
         <div class="card-body">
-          <form action="/medico/crear" method="post">
+          <form action="/crear" method="post">
             <div class="input-group mt-2">
               <label for="nombre" class="input-group-text">Nombre del doctor</label>
               <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Ejemplo: Luis Angel"autofocus required>
             </div>
             <div class="input-group mt-2">
+              <label for="apellido" class="input-group-text">Apellido del doctor</label>
+              <input class="form-control" type="text" name="apellido" id="apellido" placeholder="Ejemplo: Quintero Castillo"autofocus required>
+            </div>
+            <div class="input-group mt-2">
                 <label for="especialidad" class="input-group-text">Especialidad</label>
-                <select name="especialidad" id="especialidad">
+                <select name="especialidad" id="especialidad" class="form-select">
                     <option value="Cardiologia y Laboratorio de exploracion cardiovascular">Cardiologia y Laboratorio de exploracion cardiovascular</option>
                     <option value="Cirugia cardiovascular">Cirugia cardiovascular</option>
                     <option value="Cirugia general y laparoscopia avanzada">Cirugia general y laparoscopia avanzada</option>
@@ -77,11 +81,26 @@
                 <input class="form-control" type="number" name="telefono" id="telefono" required>
             </div>
             <div class="input-group mt-2">
+              <label for="inputState" class="input-group-text">Sexo</label>
+              <select id="inputState" class="form-select" name="sexo">
+                <option value="hombre">Hombre</option>
+                <option value="mujer">Mujer</option>
+              </select>
+          </div>
+            <div class="input-group mt-2">
                 <label for="direccion" class="input-group-text">Direccion</label>
                 <input class="form-control" type="text" name="direccion" id="direccion" required>
             </div>
+            <div class="input-group mt-2">
+                <label for="email" class="input-group-text">Correo electrónico</label>
+	     		      <input type="email" class="form-control" name="email" placeholder="Ejemplo: nombre@cdlj.com" id="email" required>
+            </div>
+            <div class="input-group mt-2">
+               <label for="contrasena" class="input-group-text">Contraseña</label>
+               <input type="password" class="form-control" name="contrasena" placeholder="Contraseña" id="contrasena" required>
+            </div>
             <div class="input-group mt-4 d-grid gap-2">
-              <button class="btn btn-succes">Añadir medico</button>
+              <button class="btn btn-success">Añadir medico</button>
           </form>
         </div>
       </div>

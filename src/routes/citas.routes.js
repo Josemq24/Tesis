@@ -59,83 +59,83 @@ const getPacienteLogged = async (email) => {
 router.get('/adm', );
 
 
-router.post('/add', async (req, res) => {
-    try {
-       const {id_medico, nombre,id_paciente, fecha, hora} = req.body;
-       const newCita = {
-           nombre,
-           id_medico,
-           id_paciente,
-           fecha,
-           hora
-       };
-       await pool.query('INSERT INTO citas set ?', [newCita]);
-       res.redirect('/list');
-    }
-    catch (err) {
-        res.status(500).json({message: err.message});
-    }
-});
+// router.post('/add', async (req, res) => {
+//     try {
+//        const {id_medico, nombre,id_paciente, fecha, hora} = req.body;
+//        const newCita = {
+//            nombre,
+//            id_medico,
+//            id_paciente,
+//            fecha,
+//            hora
+//        };
+//        await pool.query('INSERT INTO citas set ?', [newCita]);
+//        res.redirect('/list');
+//     }
+//     catch (err) {
+//         res.status(500).json({message: err.message});
+//     }
+// });
 
-router.get('/add', async (req, res) => {
-    const doctores = await getAllDoctors().then((doctors) => {return doctors});
-    res.render('citas/add', {doctores});
+// router.get('/add', async (req, res) => {
+//     const doctores = await getAllDoctors().then((doctors) => {return doctors});
+//     res.render('citas/add', {doctores});
     
-});
+// });
 
-router.get('/list', async(req, res) => {
-    try {
-        const [result] = await pool.query('SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora FROM citas c JOIN medicos m ON c.id_medico = m.id_medico');
-        const doctores = await getAllDoctors().then((doctors) => {return doctors});
-        res.render('citas/list', {citas: result, doctores});
-    } 
-    catch (err) {
-        res.status(500).json({message: err.message});
-    }
+// router.get('/list', async(req, res) => {
+//     try {
+//         const [result] = await pool.query('SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora FROM citas c JOIN medicos m ON c.id_medico = m.id_medico');
+//         const doctores = await getAllDoctors().then((doctors) => {return doctors});
+//         res.render('citas/list', {citas: result, doctores});
+//     } 
+//     catch (err) {
+//         res.status(500).json({message: err.message});
+//     }
 
-});
+// });
 
-router.get('/edit/:id', async(req, res) => {
-    try {
-        const { id } = req.params;
-        const [result] = await pool.query('SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora, m.nombre AS nombre_medico FROM citas c JOIN medicos m ON c.id_medico = m.id_medico WHERE c.id = ?', [id]);
-        const citaEdit = result[0];
-        const [doctores] = await pool.query('SELECT * from medicos');
+// router.get('/edit/:id', async(req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const [result] = await pool.query('SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora, m.nombre AS nombre_medico FROM citas c JOIN medicos m ON c.id_medico = m.id_medico WHERE c.id = ?', [id]);
+//         const citaEdit = result[0];
+//         const [doctores] = await pool.query('SELECT * from medicos');
 
-        res.render('citas/edit', { cita: citaEdit, doctores });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
+//         res.render('citas/edit', { cita: citaEdit, doctores });
+//     } catch (err) {
+//         res.status(500).json({ message: err.message });
+//     }
+// });
 
-router.post('/edit/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { id_medico, nombrePaciente, fecha, hora } = req.body;
-        const editCita = {
-            id_medico,
-            nombre: nombrePaciente,
-            fecha,
-            hora
-        };
-        await pool.query('UPDATE citas SET ? WHERE id = ?', [editCita, id]);
-        res.redirect('/list');
+// router.post('/edit/:id', async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const { id_medico, nombrePaciente, fecha, hora } = req.body;
+//         const editCita = {
+//             id_medico,
+//             nombre: nombrePaciente,
+//             fecha,
+//             hora
+//         };
+//         await pool.query('UPDATE citas SET ? WHERE id = ?', [editCita, id]);
+//         res.redirect('/list');
         
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
+//     } catch (err) {
+//         res.status(500).json({ message: err.message });
+//     }
+// });
 
-router.get('/delete/:id', async (req, res) => {
-    try {
-        const {id} = req.params;
-        await pool.query('DELETE FROM citas WHERE id = ?', [id]);
-        res.redirect('/list');
-    }
-    catch (err) {
-        res.status(500).json({message: err.message});
-    }
-});
+// router.get('/delete/:id', async (req, res) => {
+//     try {
+//         const {id} = req.params;
+//         await pool.query('DELETE FROM citas WHERE id = ?', [id]);
+//         res.redirect('/list');
+//     }
+//     catch (err) {
+//         res.status(500).json({message: err.message});
+//     }
+// });
 
 router.get('/logout', async(req, res) => {
     // Destruyes la cookie y redireccionas a la vista que quieras
@@ -182,9 +182,6 @@ router.post('/auth', async (req, res) => {
         }).redirect("/listUser")
     }
 });
-
-//AUTENTICACION MEDICOS
-//router.post('')
 
 //GENERACION DE PDF
 
