@@ -11,7 +11,6 @@ const getAllDoctors = async () => {
     return data
 }
 
-
 const index = async (req,res) => {
     res.render('indexUser');
 }
@@ -21,11 +20,12 @@ const formularioAgregarCita = async (req,res) => {
         const decoded = jwt.verify(_token, "papagaiodomar");
         const doctores = await getAllDoctors().then((doctors) => {return doctors});
         res.render('citas/addUser', {doctores, decoded});
-    }
+};
 
 const agregarCita = async (req,res) => {
     try {
-        const {id_medico, nombre,id_paciente, fecha, hora} = req.body;
+        const {id_medico, nombre, id_paciente, fecha, hora} = req.body;
+        console.log(fecha);
         const newCita = {
             nombre,
             id_medico,
@@ -51,13 +51,22 @@ const mostrarCitas = async(req, res) => {
         const nombrePaciente = decoded.nombre;
         //const {nombrePaciente} =req.body;
 
+        // `SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%a %d-%m-%Y") AS fecha, c.hora
+        //     FROM citas c
+        //     JOIN medicos m ON c.id_medico = m.id_medico
+        //     WHERE c.nombre = ?`
+
+        
         const [result] = await pool.query(
-            `SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora
-            FROM citas c
-            JOIN medicos m ON c.id_medico = m.id_medico
-            WHERE c.nombre = ?`,
+            `SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre,
+                DATE_FORMAT(c.fecha, "%a %d-%m-%Y") AS fecha, c.hora
+                FROM citas c
+                JOIN medicos m ON c.id_medico = m.id_medico
+                WHERE c.nombre = ?
+                ORDER BY c.fecha ASC`,
             [nombrePaciente]
           );
+          console.log(result[0])
         res.render('citas/listUser', {citas: result});
 
     }
@@ -168,6 +177,12 @@ const formularioRegistro = async (req,res) => {
     res.render("register")
 }
 
+//CHATBOT
+
+const useBot = async (req,res) => {
+    res.render('citas/bot');
+};
+
 export { 
     index,
     formularioAgregarCita,
@@ -177,5 +192,6 @@ export {
     editarCita,
     eliminarCita,
     registro,
-    formularioRegistro
+    formularioRegistro,
+    useBot
 }

@@ -4,7 +4,7 @@ import { generarJWT } from '../helpers/tokens.js';
 import jwt from "jsonwebtoken";
 import PDFDocument from "pdfkit";
 import {getAllCitas} from "../controllers/citasController.js";
-import {index, agregarCita, formularioAgregarCita, mostrarCitas, formularioEditarCita, editarCita, eliminarCita, registro, formularioRegistro} from "../controllers/usuarioController.js";
+import {index, agregarCita, formularioAgregarCita, mostrarCitas, formularioEditarCita, editarCita, eliminarCita, registro, formularioRegistro, useBot} from "../controllers/usuarioController.js";
 
 const router = Router();
 
@@ -21,6 +21,7 @@ const isLogged = async (req, res, next) => {
 
 router.get('/registro', formularioRegistro);
 //USUARIO
+router.get('/bot',useBot);
 
 router.post("/registro", registro)
 
@@ -55,8 +56,6 @@ const getPacienteLogged = async (email) => {
     const [data] = await pool.query(`SELECT * FROM pacientes WHERE email = "${email}"`);
     return data
 }
-
-router.get('/adm', );
 
 
 // router.post('/add', async (req, res) => {
@@ -190,7 +189,7 @@ router.get('/generate-pdf', async (req, res) => {
         const currentDate = new Date();
         const currentMonth = currentDate.getMonth() + 1; // Se agrega 1 porque getMonth() devuelve un índice base cero
         
-        const [citas] = await pool.query('SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora FROM citas c JOIN medicos m ON c.id_medico = m.id_medico');; // Obtén todas las citas de tu base de datos
+        const [citas] = await pool.query('SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora FROM citas c JOIN medicos m ON c.id_medico = m.id_medico'); // Obtén todas las citas de tu base de datos
         const citasDelMes = citas.filter(cita => {
             const citaDate = new Date(cita.fecha);
             const citaMonth = citaDate.getMonth() + 1; // Se agrega 1 porque getMonth() devuelve un índice base cero

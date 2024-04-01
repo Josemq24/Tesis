@@ -1,0 +1,69 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/adm">
+        <b style="color: #57aa90e0;">Clínica Docente los Jarales</b>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav" style="margin-left: auto;">
+        <li class="nav-item">
+          <a class="nav-link" href="/User">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/addUser">Crear Cita</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/bot">ChatBot</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/listUser/{{id}}">Lista</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Cerrar Sesión</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container p-4">
+  <div class="row">
+    <div class="col-md-4 mx-auto">
+      <div class="card text-center">
+        <div class="card-header">
+          <h3 class="text-upeprcase">ChatBot</h3>
+        </div>
+        <div class="card-body">
+            <p>Estimado Usuario en esta área podrá interactuar con nuestro ChatBot.</p>
+        <div class="bg-black bg-opacity-50 absolute inset-0 justify-center items-center hidden h-screen" id="overlay">
+    <div class="bg-gray-500 rounded-xl">
+        <div class="flex items-center gap-72 p-5">
+            <div class="w-12 mb-2 flex items-center gap-2">
+                <img src="/img/bot.jpg" class="rounded-full" />
+                <p class="font-bold text-sm text-white">ChatBot Citas</p>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x cursor-pointer" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round" id="cerrarModal">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M18 6l-12 12" />
+                <path d="M6 6l12 12" />
+            </svg>
+        </div>
+        <div class="flex flex-col flex-grow w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden h-full">
+            <div class="flex flex-col flex-grow chat h-72 p-4 overflow-y-auto bg-gray-700">
+                <div class="flex w-full mt-2 space-x-3 max-w-xs">
+                    <div class="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
+                        <p class="text-sm font-bold">Bienvenido al asistente virtual</p>
+                        <p class="text-sm font-bold">Se le agradece solamente usar "si" o "no" como respuesta</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-500 p-4">
+                <div class="flex justify-center py-3">
+                    <button class="bg-red-600 text-center p-3 rounded-xl font-bold text-black mandar-datos hidden">Enviar datos</button>
+                </div>
+                <input class="flex items-center h-10 w-full rounded px-3 text-sm chat-input" type="text" placeholder="Ingrese su respuesta" />
+            </div>
+        </div>
+    </div>
+</div>

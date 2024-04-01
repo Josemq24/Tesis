@@ -1,0 +1,25 @@
+# Definir las preguntas
+preguntas = [
+    "Fiebre",
+    "Dolor de cabeza",
+    "Tos",
+    "Fatiga",
+    "Dificultad para respirar",
+    "Pérdida del gusto/olfato",
+    "Dolor muscular",
+    "Contacto cercano",
+    "Náuseas/Vómitos",
+    "Diarrea"
+]
+
+# Definir los diagnósticos posibles
+diagnosticos = [
+    "COVID-19",
+    "Resfriado",
+    "Gripe",
+    "Intoxicación alimentaria",
+    "Sinusitis",
+    "Bronquitis",
+    "Infección de garganta",
+    "Alergias"
+]

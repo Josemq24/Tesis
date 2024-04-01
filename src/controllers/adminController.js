@@ -72,7 +72,7 @@ const editarDoctor = async (req,res) =>{
     }
 }
 
-const eliminarDoctor = async(req,res)=>{
+const eliminarDoctor = async (req,res)=>{
     try{
         const {id} = req.params
         await pool.query("DELETE FROM medicos WHERE id_medico = ?", [id])
@@ -112,7 +112,7 @@ const addAdminPost = async (req, res) => {
 
 const mostrarLista = async(req, res) => {
     try {
-        const [result] = await pool.query('SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, c.hora FROM citas c JOIN medicos m ON c.id_medico = m.id_medico');
+        const [result] = await pool.query('SELECT c.id, c.id_medico, c.id_paciente, m.nombre AS nombre_medico, c.nombre, DATE_FORMAT(c.fecha, "%a %d-%m-%Y") AS fecha, c.hora FROM citas c JOIN medicos m ON c.id_medico = m.id_medico');
         const doctores = await getAllDoctors().then((doctors) => {return doctors});
         res.render('citas/list', {citas: result, doctores});
     } 
