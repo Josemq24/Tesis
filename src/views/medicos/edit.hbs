@@ -80,13 +80,50 @@
                 <label for="telefono" class="input-group-text">Telefono</label>
                 <input class="form-control" type="number" name="telefono" id="telefono" value="{{medico.telefono}}" required>
             </div>
+
+            <div>
+              <p>Separar los dias con ","</p>
+            </div>
+            <div class="input-group mt-2">
+                <label for="telefono" class="input-group-text">Días para consultas</label>
+                <input class="form-control" type="text" name="dia" id="dia" value="{{medico.dia}}" placeholder="Ejemplo: lunes, martes, miercoles...." required>
+            </div>
+            <div class="input-group mt-2">
+              <label for="inputState" class="input-group-text">Inicio de Jornada</label>
+              <select id="inputState" class="form-select" name="horaI" value="{{medico.horaI}}">
+                <option value="8">8:00 AM</option>
+                <option value="9">9:00 AM</option>
+                <option value="10">10:00 AM</option>
+                <option value="11">11:00 AM</option>
+                <option value="12">12:00 PM</option>
+                <option value="13">1:00 PM</option>
+                <option value="14">2:00 PM</option>
+                <option value="15">3:00 PM</option>
+                <option value="16">4:00 PM</option>
+              </select>
+          </div>
+          <div class="input-group mt-2">
+              <label for="inputState" class="input-group-text">Finalización de Jornada</label>
+              <select id="inputState" class="form-select" name="horaF" >
+                <option value="9">9:00 AM</option>
+                <option value="10">10:00 AM</option>
+                <option value="11">11:00 AM</option>
+                <option value="12">12:00 PM</option>
+                <option value="13">1:00 PM</option>
+                <option value="14">2:00 PM</option>
+                <option value="15">3:00 PM</option>
+                <option value="16">4:00 PM</option>
+                <option value="17">5:00 PM</option>
+              </select>
+          </div>
+
             <div class="input-group mt-2">
                 <label for="direccion" class="input-group-text">Direccion</label>
                 <input class="form-control" type="text" name="direccion" id="direccion" value="{{medico.direccion}}" required>
             </div>
             <div class="input-group mt-2">
               <label for="inputState" class="input-group-text">Sexo</label>
-              <select id="inputState" class="form-select" name="sexo">
+              <select id="inputState" class="form-select" name="sexo" >
                 <option value="hombre">Hombre</option>
                 <option value="mujer">Mujer</option>
               </select>

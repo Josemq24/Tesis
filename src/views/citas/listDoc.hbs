@@ -32,10 +32,10 @@
                 <tbody style="background: aliceblue;">
                     {{#each citas}}
                         <tr>
-                            <td>{{nombre_medico}}</td>
-                            <td>{{nombre}}</td>
+                            <td>{{nombre_medico}} {{apellido_medico}}</td>
+                            <td>{{nombre}} {{apellido_paciente}}</td>
                             <td>{{fecha}}</td>
-                            <td>{{hora}}</td>
+                            <td>{{horaDelaCita}}</td>
                             <td>
                                 <div class="btn-group">
                                     <a href="/editDoc/{{id}}" class="btn btn-warning p-2">

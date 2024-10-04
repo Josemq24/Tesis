@@ -32,7 +32,7 @@
     <div class="col-md-4 mx-auto">
       <div class="card text-center">
         <div class="card-header">
-          <h3 class="text-upeprcase">Añadir Medico</h3>
+          <h3 class="text-upeprcase">Añadir Médico</h3>
         </div>
         <div class="card-body">
           <form action="/crear" method="post">
@@ -47,39 +47,75 @@
             <div class="input-group mt-2">
                 <label for="especialidad" class="input-group-text">Especialidad</label>
                 <select name="especialidad" id="especialidad" class="form-select">
-                    <option value="Cardiologia y Laboratorio de exploracion cardiovascular">Cardiologia y Laboratorio de exploracion cardiovascular</option>
-                    <option value="Cirugia cardiovascular">Cirugia cardiovascular</option>
-                    <option value="Cirugia general y laparoscopia avanzada">Cirugia general y laparoscopia avanzada</option>
-                    <option value="Cirugia oncologica">Cirugia oncologica</option>
-                    <option value="Ciruga pediatrica">Ciruga pediatrica</option>
-                    <option value="Cirugia plastica">Cirugia plastica</option>
-                    <option value="Coloproctologia">Coloproctologia</option>
-                    <option value="Dermatologia">Dermatologia</option>
-                    <option value="Fisiatria">Fisiatria</option>
-                    <option value="Gastronenterologia">Gastronenterologia</option>
+                    <option value="Cardiologia y Laboratorio de exploracion cardiovascular">Cardiología y Laboratorio de exploración cardiovascular</option>
+                    <option value="Cirugia cardiovascular">Cirugía cardiovascular</option>
+                    <option value="Cirugia general y laparoscopia avanzada">Cirugía general y laparoscopia avanzada</option>
+                    <option value="Cirugia oncologica">Cirugía oncológica</option>
+                    <option value="Ciruga pediatrica">Cirugía pediátrica</option>
+                    <option value="Cirugia plastica">Cirugía plástica</option>
+                    <option value="Coloproctologia">Coloproctología</option>
+                    <option value="Dermatologia">Dermatología</option>
+                    <option value="Fisiatria">Fisiatría</option>
+                    <option value="Gastronenterologia">Gastronenterología</option>
                     <option value="Gineco - Obstetricia">Gineco - Obstetricia</option>
                     <option value="Metabolismo mineral y oseo">Metabolismo mineral y oseo</option>
-                    <option value="Infectologia">Infectologia</option>
-                    <option value="Inmunoalergologia">Inmunoalergologia</option>
-                    <option value="Medicia critica">Medicia critica</option>
+                    <option value="Infectologia">Infectología</option>
+                    <option value="Inmunoalergologia">Inmunoalergología</option>
+                    <option value="Medicia critica">Medicina crítica</option>
                     <option value="Medicina interna">Medicina interna</option>
-                    <option value="Nefrologia">Nefrologia</option>
-                    <option value="Neurocirugia">Neurocirugia</option>
-                    <option value="Neumonologo">Neumonologo</option>
-                    <option value="Nutricionologia clinica">Nutricionologia clinica</option>
-                    <option value="Odontologia">Odontologia</option>
-                    <option value="Oftalmologia">Oftalmologia</option>
-                    <option value="Otorrinolaringologia">Otorrinolaringologia</option>
-                    <option value="Pediatria">Pediatria</option>
-                    <option value="Sexologia">Sexologia</option>
-                    <option value="Traumatologia y ortopedia">Traumatologia y ortopedia</option>
-                    <option value="Urologia">Urologia</option>
+                    <option value="Nefrologia">Nefrología</option>
+                    <option value="Neurocirugia">Neurocirugía</option>
+                    <option value="Neumonologo">Neumonólogo</option>
+                    <option value="Nutricionologia clinica">Nutricionología clínica</option>
+                    <option value="Odontologia">Odontología</option>
+                    <option value="Oftalmologia">Oftalmología</option>
+                    <option value="Otorrinolaringologia">Otorrinolaringología</option>
+                    <option value="Pediatria">Pediatría</option>
+                    <option value="Sexologia">Sexología</option>
+                    <option value="Traumatologia y ortopedia">Traumatología y ortopedía</option>
+                    <option value="Urologia">Urología</option>
                 </select>
             </div>
             <div class="input-group mt-2">
-                <label for="telefono" class="input-group-text">Telefono</label>
-                <input class="form-control" type="number" name="telefono" id="telefono" required>
+                <label for="telefono" class="input-group-text">Teléfono</label>
+                <input class="form-control" type="number" name="telefono" id="telefono" placeholder="Ejemplo: 04127654321" required>
             </div>
+            <div>
+              <p>Separar los dias con ","</p>
+            </div>
+            <div class="input-group mt-2">
+                <label for="telefono" class="input-group-text">Días para consultas</label>
+                <input class="form-control" type="text" name="dia" id="dia" placeholder="Ejemplo: lunes, martes, miercoles...." required>
+            </div>
+            <div class="input-group mt-2">
+              <label for="inputState" class="input-group-text">Inicio de Jornada</label>
+              <select id="inputState" class="form-select" name="horaI">
+                <option value="8">8:00 AM</option>
+                <option value="9">9:00 AM</option>
+                <option value="10">10:00 AM</option>
+                <option value="11">11:00 AM</option>
+                <option value="12">12:00 PM</option>
+                <option value="13">1:00 PM</option>
+                <option value="14">2:00 PM</option>
+                <option value="15">3:00 PM</option>
+                <option value="16">4:00 PM</option>
+              </select>
+          </div>
+          <div class="input-group mt-2">
+              <label for="inputState" class="input-group-text">Finalización de Jornada</label>
+              <select id="inputState" class="form-select" name="horaF">
+                <option value="9">9:00 AM</option>
+                <option value="10">10:00 AM</option>
+                <option value="11">11:00 AM</option>
+                <option value="12">12:00 PM</option>
+                <option value="13">1:00 PM</option>
+                <option value="14">2:00 PM</option>
+                <option value="15">3:00 PM</option>
+                <option value="16">4:00 PM</option>
+                <option value="17">5:00 PM</option>
+              </select>
+          </div>
+
             <div class="input-group mt-2">
               <label for="inputState" class="input-group-text">Sexo</label>
               <select id="inputState" class="form-select" name="sexo">
@@ -88,8 +124,8 @@
               </select>
           </div>
             <div class="input-group mt-2">
-                <label for="direccion" class="input-group-text">Direccion</label>
-                <input class="form-control" type="text" name="direccion" id="direccion" required>
+                <label for="direccion" class="input-group-text">Dirección</label>
+                <input class="form-control" type="text" name="direccion" id="direccion" placeholder="Ejemplo: Valencia Calle 29" autofocus required>
             </div>
             <div class="input-group mt-2">
                 <label for="email" class="input-group-text">Correo electrónico</label>
@@ -100,7 +136,7 @@
                <input type="password" class="form-control" name="contrasena" placeholder="Contraseña" id="contrasena" required>
             </div>
             <div class="input-group mt-4 d-grid gap-2">
-              <button class="btn btn-success">Añadir medico</button>
+              <button class="btn btn-success">Añadir médico</button>
           </form>
         </div>
       </div>

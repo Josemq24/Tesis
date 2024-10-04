@@ -35,6 +35,7 @@
                 <thead>
                     <tr class="table-dark">
                         <th scope="col">Nombre Doctor</th>
+                        <th scope="col">Especialidad</th>
                         <th scope="col">Nombre Paciente</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Hora</th>
@@ -44,10 +45,11 @@
                 <tbody style="background: aliceblue;">
                     {{#each citas}}
                         <tr>
-                            <td>{{nombre_medico}}</td>
+                            <td>{{nombre_medico}} {{apellido}}</td>
+                            <td>{{especialidad}}</td>
                             <td>{{nombre}}</td>
                             <td>{{fecha}}</td>
-                            <td>{{hora}}</td>
+                            <td>{{horaDelaCita}}</td>
                             <td>
                                 <div class="btn-group">
                                     <a href="/editUser/{{id}}" class="btn btn-warning p-2">

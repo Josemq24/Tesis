@@ -38,28 +38,46 @@
           <form action="/add" method="post">
             <div class="input-group mt-2">
               <label for="nombreDoctor" class="input-group-text">Doctor</label>
-              <select id="id_medico" name="id_medico" class="form-select">
+              <select id="id_medico" name="id_medico" class="form-select" >
                 {{#each doctores}}
                   <option value={{this.id_medico}} name="id_medico" id="id_medico">{{this.nombre}}, {{this.especialidad}}</option>
                 {{/each}}
               </select>
-              {{!-- <input class="form-control" type="text" name="nombreDoctor" id="nombreDoctor" placeholder="Ejemplo: Miguel Quintero" autofocus required> --}}
             </div>
-            <div>
+            {{!-- <div>
               <input type="hidden" value="{{decoded.id}}" name="id_paciente" id="id_paciente">
-            </div>
+              _{{this.id_paciente}}
+            </div> --}}
             <div class="input-group mt-2">
-              <label for="nombrePaciente" class="input-group-text">Paciente</label>
-              <input class="form-control" type="text" value="{{decoded.nombre}}" name="nombre" id="nombre" placeholder="Ejemplo: Luis Angel"autofocus required>
+                <label for="nombrePaciente" class="input-group-text">Paciente</label>
+                <select class="form-select" name="nombre" id="nombre">
+                {{#each pacientes}}
+                  <option value="{{this.nombre}}" name="nombre" id="nombre">{{this.nombre}} {{this.apellido}}, {{this.email}}, Edad: {{this.edad}} años</option>
+                  
+                {{/each}}
+                
+              </select>
+            <input type="hidden" id="id_paciente" name="id_paciente" value="{{this.id_paciente}}">
             </div>
             <div class="input-group mt-2">
               <label for="fecha" class="input-group-text">Fecha</label>
               <input class="form-control" type="date" name="fecha" id="fecha" required>
             </div>
             <div class="input-group mt-2">
-              <label for="hora" class="input-group-text">Hora</label>
-              <input class="form-control" type="time" name="hora" id="hora" required>
-            </div>
+              <label for="inputState" class="input-group-text">Hora de la cita</label>
+              <select id="inputState" class="form-select" name="horaCita">
+                <option value="0">8:00 AM</option>
+                <option value="1">9:00 AM</option>
+                <option value="2">10:00 AM</option>
+                <option value="3">11:00 AM</option>
+                <option value="4">12:00 PM</option>
+                <option value="5">1:00 PM</option>
+                <option value="6">2:00 PM</option>
+                <option value="7">3:00 PM</option>
+                <option value="8">4:00 PM</option>
+                <option value="9">5:00 PM</option>
+              </select>
+          </div>
             <div class="input-group mt-4 d-grid gap-2">
               <button class="btn btn-success">Crear</button>
           </form>
