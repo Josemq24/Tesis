@@ -32,7 +32,7 @@ router.get('/User', isLogged, index);
 router.get('/addUser', isLogged, formularioAgregarCita);
 
 router.post('/addUser', isLogged, agregarCita);
-  
+
 router.get('/listUser', isLogged, mostrarCitas);
 
 router.get('/editUser/:id', isLogged, formularioEditarCita);

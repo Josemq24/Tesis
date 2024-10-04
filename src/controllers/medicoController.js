@@ -33,7 +33,7 @@ const mostrarCitas = async(req, res) => {
                 INNER JOIN pacientes ON citas.id_paciente = pacientes.id_paciente
                 WHERE citas.id_medico =?
                 ORDER BY citas.fecha ASC, citas.horaCita ASC;`,
-             [id]);
+            [id]);
 
         res.render('citas/listDoc', {citas: result});
     }
@@ -41,6 +41,7 @@ const mostrarCitas = async(req, res) => {
         res.status(500).json({message: err.message});
     }
 };
+
 
 const editarCita = async(req, res) => {
     try {
@@ -88,7 +89,7 @@ const editarCitaPost = async (req, res) => {
         const numeroDia = new Date(editCita.fecha);
         const Dia = numeroDia.getDay();
         const diasSemana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
-       
+
 
         //ESTE ES EL DIA DE LA CITA
         const diaSemana = diasSemana[Dia];
@@ -144,3 +145,5 @@ export {
     editarCitaPost,
     eliminarCita
 };
+
+
